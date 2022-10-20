@@ -12,7 +12,7 @@ function levelStart(level) {
     if (level >= gameLevels.length) {
         level = gameLevels.length - 1;
         gameOverModal.style.visibility = "visible";
-        gameGrid.style.visibility = "hidden";
+        gameBoard.style.visibility = "hidden";
         return;
     }
 
@@ -96,7 +96,7 @@ function modalClick(event) {
     event.preventDefault();
 
     gameOverModal.style.visibility = "hidden";
-    gameGrid.style.visibility = "visible";
+    gameBoard.style.visibility = "visible";
 
     levelStart(game.level);
 }
