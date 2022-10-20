@@ -116,10 +116,10 @@ function uiMoveCancel() {
 /*****************************************************************************
  * Register mouse event handlers
  *****************************************************************************/
-window.addEventListener("mousedown",  uiMoveStart);
-window.addEventListener("mousemove",  uiMoveContinue);
-window.addEventListener("mouseup",    uiMoveEnd);
-window.addEventListener("mouseleave", uiMoveCancel);
+gameBoard.addEventListener("mousedown",  uiMoveStart);
+gameBoard.addEventListener("mousemove",  uiMoveContinue);
+gameBoard.addEventListener("mouseup",    uiMoveEnd);
+gameBoard.addEventListener("mouseleave", uiMoveCancel);
 
 /*****************************************************************************
  * Register touch event handlers

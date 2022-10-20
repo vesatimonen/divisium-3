@@ -1,3 +1,5 @@
+var gameOverModal = document.getElementById("game-over-modal");
+
 /*****************************************************************************
  * Level initialization
  *****************************************************************************/
@@ -9,7 +11,9 @@ function levelStart(level) {
 
     if (level >= gameLevels.length) {
         level = gameLevels.length - 1;
-        alert("Game over!");
+        gameOverModal.style.visibility = "visible";
+        gameGrid.style.visibility = "hidden";
+        return;
     }
 
     /* Use predefined challenges */
@@ -87,4 +91,16 @@ if (level > 0) {
 } else {
     levelStart(0);
 }
+
+function modalClick(event) {
+    event.preventDefault();
+
+    gameOverModal.style.visibility = "hidden";
+    gameGrid.style.visibility = "visible";
+
+    levelStart(game.level);
+}
+
+gameOverModal.addEventListener("click",      modalClick);
+gameOverModal.addEventListener("touchend",   modalClick, {passive: true});
 
