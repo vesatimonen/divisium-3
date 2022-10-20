@@ -21,7 +21,7 @@ function levelStart(level) {
               gameLevels[level].info);
 
     /* Save game point */
-    localStorage.setItem("game-level", JSON.stringify(game.level));
+    localStorage.setItem("divisium-3/game-level", JSON.stringify(game.level));
 
     /* Setup board */
     uiBoardSetup(game.board);
@@ -86,7 +86,7 @@ var game = new Game();
 /*****************************************************************************
  * Start game from save point
  *****************************************************************************/
-level = JSON.parse(localStorage.getItem("game-level"));
+level = JSON.parse(localStorage.getItem("divisium-3/game-level"));
 if (level > 0) {
     levelStart(level);
 } else {
