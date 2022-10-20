@@ -44,8 +44,7 @@ function uiMovePosition(event) {
  *****************************************************************************/
 var movePolarity = undefined;
 
-const toggleTreshold = 0.1;
-function uiToggle(event) {
+function uiToggle(event, threshold) {
     move = uiMovePosition(event);
     X = move.X;
     Y = move.Y;
@@ -68,7 +67,7 @@ function uiToggle(event) {
     Xdelta = Math.abs(X - Xwall);
     Ydelta = Math.abs(Y - Ywall);
     if (Xdelta < Ydelta) {
-        if (Ydelta - Xdelta > toggleTreshold) {
+        if (Ydelta - Xdelta > threshold) {
             /* Vertical wall */
             if (Xwall > 0 && Xwall < game.board.width) {
                 movePolarity = game.makeMove("vertical", Xwall, Ycell, movePolarity);
@@ -76,7 +75,7 @@ function uiToggle(event) {
             }
         }
     } else {
-        if (Xdelta - Ydelta > toggleTreshold) {
+        if (Xdelta - Ydelta > threshold) {
             /* Horizontal wall */
             if (Ywall > 0 && Ywall < game.board.height) {
                 movePolarity = game.makeMove("horizontal", Xcell, Ywall, movePolarity);
@@ -87,14 +86,14 @@ function uiToggle(event) {
 }
 
 function uiMoveStart(event) {
-    uiToggle(event);
+    uiToggle(event, 0.0);
     return false;
 }
 
 /* "paint mode" */
 function uiMoveContinue(event) {
     if (movePolarity != undefined) {
-        uiToggle(event);
+        uiToggle(event, 0.3);
     }
 
     return false;
