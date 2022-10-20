@@ -28,7 +28,6 @@
 /*     image-rendering: pixelated; */
 }
 
-
 /*** Game screen ***/
 #game-screen {
     /* Screen size */
@@ -73,6 +72,27 @@
     border-radius:  4px;
 
     touch-action:   none; /* Disable scroll down refresh */
+}
+
+#game-over-modal {
+    visibility:         hidden;
+
+    position:           absolute;
+    z-index:            1;
+
+    padding:            10px;
+    font-size:          24px;
+    font-weight:        bold;
+    text-align:         center;
+
+    background-color:   #67BFEC;
+    border:             2px solid #202020;
+    border-radius:      8px;
+
+    /* Center */
+    top:                50%;
+    left:               50%;
+    transform:          translate(-50%, -50%);
 }
 
 #game-canvas {
