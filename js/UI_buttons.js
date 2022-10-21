@@ -5,7 +5,7 @@ const buttonUndo     = document.getElementById("button-undo");
 /*****************************************************************************
  * Button handlers
  *****************************************************************************/
-function uiUndo() {
+function uiUndo(event) {
     /* Make undo if possible */
     if (game.undoMove() == false) {
         return false;
@@ -17,7 +17,7 @@ function uiUndo() {
     return false;
 }
 
-function uiRestart() {
+function uiRestart(event) {
     /* Undo all moves back */
     while (true) {
         if (game.undoMove() == false) {
@@ -32,12 +32,12 @@ function uiRestart() {
 }
 
 var restartTimer;
-function uiMouseUp() {
+function uiMouseUp(event) {
     clearInterval(restartTimer);
     return false;
 }
 
-function uiMouseDown() {
+function uiMouseDown(event) {
     restartTimer = setInterval(
                         function() {
                             if (game.level == 0) {
@@ -49,6 +49,8 @@ function uiMouseDown() {
                         500);
     return false;
 }
+
+
 
 /*****************************************************************************
  * Register button event handlers
@@ -63,4 +65,11 @@ buttonRestart.addEventListener("mouseleave", uiMouseUp);
 buttonRestart.addEventListener("mousedown",  uiMouseDown);
 buttonRestart.addEventListener("touchend",   uiMouseUp);
 buttonRestart.addEventListener("touchstart", uiMouseDown, {passive: true});
+
+function preventZoom(event) {
+    /* Disable double click zoom */
+    event.preventDefault();
+}
+
+document.getElementById("game-screen").addEventListener("click", preventZoom);
 
