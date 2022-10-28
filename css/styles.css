@@ -72,6 +72,8 @@
     border-radius:  4px;
 
     touch-action:   none; /* Disable scroll down refresh */
+    touch-action:   pinch-zoom;
+
 }
 
 #game-over-modal {

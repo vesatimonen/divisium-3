@@ -85,13 +85,24 @@ function uiToggle(event, threshold) {
     }
 }
 
+var pinchZoom = false;
+
 function uiMoveStart(event) {
+    if (event.touches.length > 1) {
+        pinchZoom = true;
+        return false;
+    }
+
     uiToggle(event, 0.0);
     return false;
 }
 
 /* "paint mode" */
 function uiMoveContinue(event) {
+    if (pinchZoom) {
+        return false;
+    }
+
     if (movePolarity != undefined) {
         uiToggle(event, 0.3);
     }
@@ -100,6 +111,10 @@ function uiMoveContinue(event) {
 }
 
 function uiMoveEnd(event) {
+    if (pinchZoom) {
+        pinchZoom = false;
+    }
+
     /* Disable zoom */
     event.preventDefault();
 
