@@ -86,9 +86,8 @@ function uiToggle(event, threshold) {
 }
 
 var pinchZoom = false;
-
 function uiMoveStart(event) {
-    if (event.touches.length > 1) {
+    if (event.type == "touchstart" && event.touches.length > 1) {
         pinchZoom = true;
         return false;
     }
