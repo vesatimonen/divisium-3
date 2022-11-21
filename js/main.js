@@ -438,15 +438,6 @@ var gameLevels = [
     {info: "INFO: D34-22-16-09-00-00-00-00-00-00 T049775 #9x9=3-120300301020120011012103011000012021331200112002031210012102320321012010000210030"},
     {info: "INFO: D32-24-18-07-00-00-00-00-00-00 T051978 #9x9=3-012012102221210210100030201021001212002131021330000100003201212003102101003201111"},
 
-
-
-
-
-
-
-
-
-
 ];
 
 /*****************************************************************************
@@ -457,7 +448,17 @@ var game = new Game();
 /*****************************************************************************
  * Start game from save point
  *****************************************************************************/
-level = JSON.parse(localStorage.getItem("divisium-3/game-level"));
+/* Level given in URL? */
+var level_option = window.location.href.split("?L")[1];
+
+if (level_option != undefined) {
+    level = Number(level_option) - 1;
+} else {
+    /* Read from storage */
+    level = JSON.parse(localStorage.getItem("divisium-3/game-level"));
+}
+
+
 if (level > 0) {
     levelStart(level);
 } else {
