@@ -61,8 +61,10 @@ function uiElementsRedraw(board) {
     var context = canvas.getContext('2d');
 
     /* Set canvas size and clear it */
-    canvas.width = gameGrid.clientWidth;
-    canvas.height = gameGrid.clientHeight;
+    const pixelRation = 2.0;
+    canvas.width = gameGrid.clientWidth * pixelRation;
+    canvas.height = gameGrid.clientHeight * pixelRation;
+    context.scale(pixelRation, pixelRation);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     /* Draw dots */
