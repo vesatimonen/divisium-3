@@ -83,8 +83,6 @@ var defaultChallengeSet = [
     {info: "INFO: N23-36-21-01 C06-08-84 D0320322000000000000000000000 T010880 #9x9=3-120110201002111122212010220110202012111120210112010111011112001311021022011201210"},
     {info: "INFO: N22-39-18-02 C13-17-77 D0032232332000100202330000000 T028844 #9x9=3-110110211022121111201100011201122010102001330012210211210111011021112121102112001"},
     {info: "INFO: N22-40-16-03 C09-21-81 D3302320000001000023300000000 T026199 #9x9=3-210111111022012011101211101012031112210001210103001202120031111121002011101212111"},
-
-    {info: "INFO: N03-04-01-01 C00-00-06 D0000 T000001 #3x3=3-021113100"},
 ];
 
 var debugChallengeSet = [
@@ -460,7 +458,6 @@ if (URL_option_string != undefined) {
         /* Challenge set option */
         if (URL_options[i].match("S[0-9]*$") != null) {
             set_option = URL_options[i].split("S")[1];
-            console.log(set_option);
         }
     }
 }
@@ -474,6 +471,12 @@ if (level_option == undefined) {
     level = JSON.parse(localStorage.getItem("divisium-3/game-level"));
 } else {
     level = Number(level_option) - 1;
+}
+
+if (set_option == undefined || set_option == 0) {
+    gameLevels = defaultChallengeSet;
+} else {
+    gameLevels = debugChallengeSet;
 }
 
 
