@@ -179,6 +179,13 @@ function uiBoardSetup(board) {
  *****************************************************************************/
 function uiGridAnimationEnd(event) {
     event.stopPropagation();
+
+    if (game.level + 1 >= gameLevels.length) {
+        /* Show game over modal */
+        gameOverModal.style.visibility = "visible";
+        gameBoard.style.visibility = "hidden";
+    }
+
     gameStart(game.level + 1); /* Start new level */
     return false;
 }
