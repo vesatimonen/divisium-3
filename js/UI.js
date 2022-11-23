@@ -179,7 +179,7 @@ function uiBoardSetup(board) {
  *****************************************************************************/
 function uiGridAnimationEnd(event) {
     event.stopPropagation();
-    levelStart(game.level + 1); /* Start new level */
+    gameStart(game.level + 1); /* Start new level */
     return false;
 }
 

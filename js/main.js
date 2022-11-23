@@ -3,11 +3,12 @@ var gameOverModal = document.getElementById("game-over-modal");
 /*****************************************************************************
  * Level initialization
  *****************************************************************************/
-function levelStart(level) {
+function gameStart(level) {
     /* Check level value */
-    if (!(level > 0)) {
+    if (level == undefined || level < 0) {
         level = 0;
     }
+
 
     if (level >= gameLevels.length) {
         level = gameLevels.length - 1;
@@ -439,37 +440,59 @@ var gameLevels = [
 ];
 
 /*****************************************************************************
- * Create game
+ * Parse URL options
  *****************************************************************************/
-var game = new Game();
+var level_option = undefined;
+var set_option   = undefined;
+
+var URL_option_string = window.location.href.split("?")[1];
+if (URL_option_string != undefined) {
+    var URL_options = URL_option_string.split(",");
+
+    /* Go through options */
+    for (let i = 0; i < URL_options.length; i++) {
+        /* Level option */
+        if (URL_options[i].match("L[0-9]*$") != null) {
+            level_option = URL_options[i].split("L")[1];
+        }
+
+        /* Challenge set option */
+        if (URL_options[i].match("S[0-9]*$") != null) {
+            set_option = URL_options[i].split("S")[1];
+            console.log(set_option);
+        }
+    }
+}
+
 
 /*****************************************************************************
- * Start game from save point
+ * Option fallbacks
  *****************************************************************************/
-/* Level given in URL? */
-var level_option = window.location.href.split("?L")[1];
-
-if (level_option != undefined) {
-    level = Number(level_option) - 1;
-} else {
+if (level_option == undefined) {
     /* Read from storage */
     level = JSON.parse(localStorage.getItem("divisium-3/game-level"));
-}
-
-
-if (level > 0) {
-    levelStart(level);
 } else {
-    levelStart(0);
+    level = Number(level_option) - 1;
 }
 
+
+/*****************************************************************************
+ * Start game
+ *****************************************************************************/
+var game = new Game();
+gameStart(level);
+
+
+/*****************************************************************************
+ * Modal window handling (Game over)
+ *****************************************************************************/
 function modalClick(event) {
     event.preventDefault();
 
     gameOverModal.style.visibility = "hidden";
-    gameBoard.style.visibility = "visible";
+    gameBoard.style.visibility     = "visible";
 
-    levelStart(game.level);
+    gameStart(game.level);
 }
 
 gameOverModal.addEventListener("click",      modalClick);

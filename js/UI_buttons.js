@@ -43,7 +43,7 @@ function uiMouseDown(event) {
                             if (game.level == 0) {
                                 clearInterval(restartTimer);
                             } else {
-                                levelStart(game.level - 1);
+                                gameStart(game.level - 1);
                             }
                         },
                         500);
