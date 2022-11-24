@@ -1,28 +1,5 @@
 var gameOverModal = document.getElementById("game-over-modal");
 
-/*****************************************************************************
- * Level initialization
- *****************************************************************************/
-function gameStart(level) {
-    /* Check level value */
-    if (level == undefined || level < 0) {
-        level = 0;
-    }
-
-    if (level >= gameLevels.length) {
-        level = gameLevels.length - 1;
-    }
-
-    /* Use predefined challenges */
-    game.init(level,
-              gameLevels[level].info);
-
-    /* Save game point */
-    localStorage.setItem("divisium-3/game-level", JSON.stringify(game.level));
-
-    /* Setup board */
-    uiBoardSetup(game.board);
-}
 
 /*****************************************************************************
  * Game levels
@@ -86,7 +63,7 @@ var defaultChallengeSet = [
 ];
 
 var debugChallengeSet = [
-    {info: "INFO: D35-19-19-08-00-00-00-00-00-00 T000146 #9x9=3-302230200010000211002102122210121010120210301101322010020002102302110330010020030"},
+    {info: " INFO: N30-27-18-06 C05-07-85 D0320000030200000000000002000 T098002 #9x9=3-202120102110100211021203312300030010002102002121021011210120211021001110120031130"},
     {info: "INFO: D35-22-13-11-00-00-00-00-00-00 T000146 #9x9=3-300021201003001210300010220331231011001001202001121211012031031000200001303103102"},
     {info: "INFO: D29-29-17-06-00-00-00-00-00-00 T000148 #9x9=3-012101031211120202100302100012011332310012000021120011201011200021220031111011102"},
     {info: "INFO: D32-24-18-07-00-00-00-00-00-00 T000153 #9x9=3-030230022010100211221201000130101211000320001230112301102110102030102202001212011"},
@@ -392,11 +369,11 @@ function parseOptions() {
                 set_option = URL_options[i].split("S")[1];
             }
         }
+//        window.history.pushState({}, null, window.location.href.split("?")[0]);
     }
 }
 
 parseOptions();
-
 
 /*****************************************************************************
  * Option fallbacks
@@ -416,8 +393,32 @@ if (set_option == undefined || set_option == 0) {
 
 
 /*****************************************************************************
- * Start game
+ * Game initialization
  *****************************************************************************/
+function gameStart(level) {
+    /* Check level value */
+    if (level == undefined || level < 0) {
+        level = 0;
+    }
+
+    if (level >= gameLevels.length) {
+        level = gameLevels.length - 1;
+    }
+
+    /* Use predefined challenges */
+    game.init(level, gameLevels[level].info);
+    if (gameLevels == debugChallengeSet) {
+        document.getElementById("debug-text").innerHTML = gameLevels[level].info.split("T")[0];
+    }
+
+
+    /* Save game point */
+    localStorage.setItem("divisium-3/game-level", JSON.stringify(game.level));
+
+    /* Setup board */
+    uiBoardSetup(game.board);
+}
+
 var game = new Game();
 gameStart(level);
 

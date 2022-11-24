@@ -200,6 +200,7 @@
 #debug-text {
     position: relative;
     left: 10px;
+    font-size:      14px;
 }
 
 @keyframes image-appear {
