@@ -32,7 +32,7 @@
 #game-screen {
     /* Screen size */
     width:              calc(100vw - 10px);
-    max-width:          480px;
+    max-width:          540px;
     min-width:          320px;
 
     margin-left:        auto;
