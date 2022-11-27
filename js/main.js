@@ -6,7 +6,7 @@ var gameOverModal = document.getElementById("game-over-modal");
  *****************************************************************************/
 var defaultChallengeSet = [
     /* L01 - L03 3x3 */
-    {info: "INFO: N33-24-15-09 C00-53-90 D1000000000000000000000000000 T000001 #9x9=3-000120123313020100023000200201121021021011201112111300103301302020000201300021111"},
+    {info: "INFO: N03-04-01-01 C00-00-06 D0000 T000001 #3x3=3-021113100"},
     {info: "INFO: N06-00-00-03 C00-00-06 D0000 T000001 #3x3=3-330000300"},
     {info: "INFO: N03-03-03-00 C00-00-06 D0000 T000001 #3x3=3-022211010"},
 
@@ -1016,7 +1016,7 @@ function gameStart(level) {
     /* Use predefined challenges */
     game.init(level, gameLevels[level].info);
     if (gameLevels == debugChallengeSet) {
-        document.getElementById("debug-text").innerHTML = gameLevels[level].info.split("T")[0];
+        document.getElementById("debug-text").innerHTML = gameLevels[level].info.split("#")[0];
     }
 
 
