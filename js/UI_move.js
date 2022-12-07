@@ -102,10 +102,6 @@ function uiMoveContinue(event) {
         return false;
     }
 
-    if (movePolarity != undefined) {
-        uiToggle(event, 0.3);
-    }
-
     return false;
 }
 
