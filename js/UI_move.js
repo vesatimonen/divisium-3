@@ -94,15 +94,6 @@ function uiMoveStart(event) {
     return false;
 }
 
-/* "paint mode" */
-function uiMoveContinue(event) {
-    if (pinchZoom) {
-        return false;
-    }
-
-    return false;
-}
-
 function uiMoveEnd(event) {
     if (pinchZoom) {
         pinchZoom = false;
@@ -114,24 +105,18 @@ function uiMoveEnd(event) {
     return false;
 }
 
-function uiMoveCancel() {
-    return false;
-}
 
 
 /*****************************************************************************
  * Register mouse event handlers
  *****************************************************************************/
 gameBoard.addEventListener("mousedown",  uiMoveStart);
-gameBoard.addEventListener("mousemove",  uiMoveContinue);
 gameBoard.addEventListener("mouseup",    uiMoveEnd);
-gameBoard.addEventListener("mouseleave", uiMoveCancel);
 
 /*****************************************************************************
  * Register touch event handlers
  *****************************************************************************/
 gameBoard.addEventListener("touchstart", uiMoveStart, {passive: true});
-gameBoard.addEventListener("touchmove",  uiMoveContinue, {passive: true});
 gameBoard.addEventListener("touchend",   uiMoveEnd);
 
 
