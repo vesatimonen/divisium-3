@@ -248,20 +248,14 @@ class Game {
         this.board.init(info);
     }
 
-    makeMove(direction, x, y, movePolarity) {
+    makeMove(direction, x, y) {
         var polarity = undefined;
 
         switch (direction) {
             case "vertical":
-                if (movePolarity == game.board.getVerticalWall(x, y)) {
-                    return movePolarity;
-                }
                 polarity = game.board.toggleVerticalWall(x, y);
                 break;
             case "horizontal":
-                if (movePolarity == game.board.getHorizontalWall(x, y)) {
-                    return movePolarity;
-                }
                 polarity = game.board.toggleHorizontalWall(x, y);
                 break;
             default:

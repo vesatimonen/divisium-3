@@ -42,8 +42,6 @@ function uiMovePosition(event) {
 /*****************************************************************************
  * Move event handlers
  *****************************************************************************/
-var movePolarity = undefined;
-
 function uiToggle(event, threshold) {
     move = uiMovePosition(event);
     X = move.X;
@@ -70,7 +68,7 @@ function uiToggle(event, threshold) {
         if (Ydelta - Xdelta > threshold) {
             /* Vertical wall */
             if (Xwall > 0 && Xwall < game.board.width) {
-                movePolarity = game.makeMove("vertical", Xwall, Ycell, movePolarity);
+                game.makeMove("vertical", Xwall, Ycell);
                 uiGameRefresh(game);
             }
         }
@@ -78,7 +76,7 @@ function uiToggle(event, threshold) {
         if (Xdelta - Ydelta > threshold) {
             /* Horizontal wall */
             if (Ywall > 0 && Ywall < game.board.height) {
-                movePolarity = game.makeMove("horizontal", Xcell, Ywall, movePolarity);
+                game.makeMove("horizontal", Xcell, Ywall);
                 uiGameRefresh(game);
             }
         }
@@ -113,12 +111,10 @@ function uiMoveEnd(event) {
     /* Disable zoom */
     event.preventDefault();
 
-    movePolarity = undefined;
     return false;
 }
 
 function uiMoveCancel() {
-    movePolarity = undefined;
     return false;
 }
 
