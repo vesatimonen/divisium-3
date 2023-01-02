@@ -940,6 +940,7 @@ var gameLevels = defaultChallengeSet;
 var level_option = undefined;
 var set_option   = undefined;
 var storageName  = "divisium-3/game-level";
+var level = 0;
 function parseOptions() {
     let URL_option_string = window.location.href.split("?")[1];
     if (URL_option_string != undefined) {
@@ -959,27 +960,39 @@ function parseOptions() {
         }
 //        window.history.pushState({}, null, window.location.href.split("?")[0]);
     }
+
+    /* Option fallbacks */
+    if (set_option == undefined || set_option == 0) {
+        gameLevels = defaultChallengeSet;
+    } else {
+        gameLevels = debugChallengeSet;
+        storageName = storageName + "-S" + set_option
+    }
+
+    if (level_option == undefined) {
+        /* Read from storage */
+        level = JSON.parse(localStorage.getItem(storageName));
+    } else {
+        level = Number(level_option) - 1;
+    }
+
 }
 
-parseOptions();
 
 /*****************************************************************************
- * Option fallbacks
+ * Modal window handling (Game over)
  *****************************************************************************/
-if (set_option == undefined || set_option == 0) {
-    gameLevels = defaultChallengeSet;
-} else {
-    gameLevels = debugChallengeSet;
-    storageName = storageName + "-S" + set_option
+function modalClick(event) {
+    event.preventDefault();
+
+    gameOverModal.style.visibility = "hidden";
+    gameBoard.style.visibility     = "visible";
+
+    gameStart(game.level);
 }
 
-if (level_option == undefined) {
-    /* Read from storage */
-    level = JSON.parse(localStorage.getItem(storageName));
-} else {
-    level = Number(level_option) - 1;
-}
-
+gameOverModal.addEventListener("click",      modalClick);
+gameOverModal.addEventListener("touchend",   modalClick, {passive: true});
 
 
 /*****************************************************************************
@@ -1009,22 +1022,23 @@ function gameStart(level) {
     uiBoardSetup(game.board);
 }
 
-var game = new Game();
-gameStart(level);
+var game = undefined;
 
 
-/*****************************************************************************
- * Modal window handling (Game over)
- *****************************************************************************/
-function modalClick(event) {
-    event.preventDefault();
+//                  "body").style.visibility = "hidden";
+//                  "#loader").style.visibility = "visible";
 
-    gameOverModal.style.visibility = "hidden";
-    gameBoard.style.visibility     = "visible";
+window.onload = function () {
+    /* Parse options */
+    parseOptions();
 
-    gameStart(game.level);
+    /* Start game */
+    game = new Game();
+    gameStart(level);
+
+    /* Show window */
+    document.getElementById("game-screen").style.visibility = "visible";
 }
 
-gameOverModal.addEventListener("click",      modalClick);
-gameOverModal.addEventListener("touchend",   modalClick, {passive: true});
+
 

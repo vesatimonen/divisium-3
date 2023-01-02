@@ -39,6 +39,8 @@
     margin-right:       auto;
 
     background-color:   #B0DDFF; /* #92D2F2, #B0DDFF*/
+
+    visibility:         hidden; /* Show after load */
 }
 
 /*
