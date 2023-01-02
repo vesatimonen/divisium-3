@@ -6,24 +6,9 @@ function uiMovePosition(event) {
     let X, Y;
 
     switch (event.type) {
-        case "mousedown":
-        case "mousemove":
-        case "mouseup":
-        case "mouseleave":
+        case "click":
             X = event.clientX;
             Y = event.clientY;
-            break;
-        case "touchstart":
-        case "touchmove":
-        case "touchend":
-        case "touchcancel":
-            /* Ignore if touched multiple fingers */
-            if (event.targetTouches > 1) {
-                return undefined;
-            }
-
-            X = event.touches[0].clientX;
-            Y = event.touches[0].clientY;
             break;
         default:
             return undefined;
@@ -40,9 +25,10 @@ function uiMovePosition(event) {
 
 
 /*****************************************************************************
- * Move event handlers
+ * Event handlers
  *****************************************************************************/
-function uiToggle(event, threshold) {
+function uiClick(event) {
+    /* Get clock position */
     move = uiMovePosition(event);
     X = move.X;
     Y = move.Y;
@@ -65,7 +51,7 @@ function uiToggle(event, threshold) {
     Xdelta = Math.abs(X - Xwall);
     Ydelta = Math.abs(Y - Ywall);
     if (Xdelta < Ydelta) {
-        if (Ydelta - Xdelta > threshold) {
+        if (Ydelta - Xdelta > 0.0) {
             /* Vertical wall */
             if (Xwall > 0 && Xwall < game.board.width) {
                 game.makeMove("vertical", Xwall, Ycell);
@@ -73,7 +59,7 @@ function uiToggle(event, threshold) {
             }
         }
     } else {
-        if (Xdelta - Ydelta > threshold) {
+        if (Xdelta - Ydelta > 0.0) {
             /* Horizontal wall */
             if (Ywall > 0 && Ywall < game.board.height) {
                 game.makeMove("horizontal", Xcell, Ywall);
@@ -83,41 +69,8 @@ function uiToggle(event, threshold) {
     }
 }
 
-var pinchZoom = false;
-function uiMoveStart(event) {
-    if (event.type == "touchstart" && event.touches.length > 1) {
-        pinchZoom = true;
-        return false;
-    }
+gameBoard.addEventListener("click", uiClick, {passive: true});
 
-    uiToggle(event, 0.0);
-    return false;
-}
-
-function uiMoveEnd(event) {
-    if (pinchZoom) {
-        pinchZoom = false;
-    }
-
-    /* Disable zoom */
-    event.preventDefault();
-
-    return false;
-}
-
-
-
-/*****************************************************************************
- * Register mouse event handlers
- *****************************************************************************/
-gameBoard.addEventListener("mousedown",  uiMoveStart);
-gameBoard.addEventListener("mouseup",    uiMoveEnd);
-
-/*****************************************************************************
- * Register touch event handlers
- *****************************************************************************/
-gameBoard.addEventListener("touchstart", uiMoveStart, {passive: true});
-gameBoard.addEventListener("touchend",   uiMoveEnd);
 
 
 
