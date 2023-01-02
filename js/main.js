@@ -1022,12 +1022,8 @@ function gameStart(level) {
     uiBoardSetup(game.board);
 }
 
+
 var game = undefined;
-
-
-//                  "body").style.visibility = "hidden";
-//                  "#loader").style.visibility = "visible";
-
 window.onload = function () {
     /* Parse options */
     parseOptions();

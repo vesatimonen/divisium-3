@@ -8,7 +8,6 @@ const gameGrid  = document.getElementById("game-grid");
 /*****************************************************************************
  * Board size variables
  *****************************************************************************/
-var gameGridWidth;
 var gameGridCellSize;
 
 /*****************************************************************************
@@ -131,9 +130,6 @@ function uiBoardRedraw(board) {
  * Setup board elements
  *****************************************************************************/
 function uiBoardSetup(board) {
-
-    /* Get board current size (for resizing) */
-    gameGridWidth = gameGrid.clientWidth;
 
     /* Calculate board grid size */
     gameGridCellSize = Math.floor((gameScreen.clientWidth) / 9); /* 9 = Maximum board X-size */
