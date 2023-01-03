@@ -1,4 +1,9 @@
 
+:root {
+    --game-screen-max-width: 640px;
+    --game-screen-min-width: 320px;
+}
+
 /*** Global default style ***/
 * {
     /* Prevent text selection */
@@ -32,8 +37,8 @@
 #game-screen {
     /* Screen size */
     width:              calc(100vw - 10px);
-    max-width:          540px;
-    min-width:          320px;
+    max-width:          var(--game-screen-max-width);
+    min-width:          var(--game-screen-min-width);
 
     margin-left:        auto;
     margin-right:       auto;
@@ -42,15 +47,6 @@
 
     visibility:         hidden; /* Show after load */
 }
-
-/*
-@media screen and (max-width: 520px) {
-    #game-screen {
-        width:          calc(100vw - 20px);
-    }
-}
-*/
-
 
 #game-title {
     margin-top:     10px;
@@ -76,7 +72,15 @@
     touch-action:   none; /* Disable scroll down refresh */
     touch-action:   pinch-zoom;
 
+    font-size:      calc(0.08 * var(--game-screen-max-width)); /* 8vm of max-width */
 }
+
+@media screen and (max-width: 640px) {
+    #game-board {
+        font-size:      8vw;
+    }
+}
+
 
 #game-over-modal {
     visibility:         hidden;
@@ -122,7 +126,6 @@
     float:          left;
 
     font-family:    Courier New, monospace;
-    font-size:      28px;
 
     background:     none;
 }
