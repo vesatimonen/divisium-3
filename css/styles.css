@@ -54,6 +54,9 @@
     border:         2px solid #202020;
     border-radius:  4px;
 
+    touch-action:   none; /* Disable all including double-tap zoom */
+    touch-action:   pinch-zoom;
+
     font-size:      calc(0.08 * var(--game-screen-max-width)); /* 8vm of max-width */
 }
 
