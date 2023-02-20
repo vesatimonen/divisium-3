@@ -32,7 +32,7 @@ function uiButtonsRedraw(game) {
  *****************************************************************************/
 function uiInfoRedraw(game) {
     let gameInfo = document.getElementById("game-info");
-    gameInfo.innerHTML = "L" + (game.level + 1);
+    gameInfo.innerHTML = "L" + (game.level + 1) + "/" + gameLevels.length;
 }
 
 /*****************************************************************************
