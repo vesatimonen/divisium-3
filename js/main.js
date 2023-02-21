@@ -932,7 +932,9 @@ var debugChallengeSet = [
     {info: "INFO: N29-28-19-05 C20-13-70 D1232022320032003233220000000 T009914 #9x9=3-102012030201021103012300200121012031111111002121011003001202100212022021102101201"},
 ];
 
-var gameLevels = defaultChallengeSet;
+var gameChallenges = defaultChallengeSet;
+
+var manualChallenges = [];
 
 /*****************************************************************************
  * Parse URL options
@@ -957,16 +959,27 @@ function parseOptions() {
             if (URL_options[i].match("S[0-9]*$") != null) {
                 set_option = URL_options[i].split("S")[1];
             }
+
+            if (URL_options[i].match("#.*$") != null) {
+                level_option = 1;
+                set_option   = "#";
+                manualChallenges.push({info: URL_options[i]});
+            }
         }
 //        window.history.pushState({}, null, window.location.href.split("?")[0]);
     }
 
     /* Option fallbacks */
     if (set_option == undefined || set_option == 0) {
-        gameLevels = defaultChallengeSet;
+        gameChallenges = defaultChallengeSet;
     } else {
-        gameLevels = debugChallengeSet;
-        storageName = storageName + "-S" + set_option
+        if (set_option == "#") {
+            gameChallenges = manualChallenges;
+            storageName    = storageName + "-#";
+        } else {
+            gameChallenges = debugChallengeSet;
+            storageName    = storageName + "-S" + set_option;
+        }
     }
 
     if (level_option == undefined) {
@@ -1004,14 +1017,14 @@ function gameStart(level) {
         level = 0;
     }
 
-    if (level >= gameLevels.length) {
-        level = gameLevels.length - 1;
+    if (level >= gameChallenges.length) {
+        level = gameChallenges.length - 1;
     }
 
     /* Use predefined challenges */
-    game.init(level, gameLevels[level].info);
-    if (gameLevels == debugChallengeSet) {
-        document.getElementById("debug-text").innerHTML = gameLevels[level].info.split("#")[0];
+    game.init(level, gameChallenges[level].info);
+    if (gameChallenges == debugChallengeSet) {
+        document.getElementById("debug-text").innerHTML = gameChallenges[level].info.split("#")[0];
     }
 
 
