@@ -484,9 +484,19 @@ function parseOptions() {
                 level_option = 1;
                 set_option   = "#";
                 manualChallenges.push({info: URL_options[i]});
+
+                /* Remove hash sign from URL */
+                window.history.pushState({}, null, window.location.href.replace('#', '$'));
+            }
+
+            if (URL_options[i].match("\$.*$") != null) {
+                level_option = 1;
+                set_option   = "#";
+
+                manualChallenges.push({info: URL_options[i].replace('$', '#')});
             }
         }
-        window.history.pushState({}, null, window.location.href.split("?")[0]);
+
 //        window.history.pushState({}, null, window.location.href);
 //        window.location.reload(true);
 //        window.history.replaceState(null, null, ' ');
