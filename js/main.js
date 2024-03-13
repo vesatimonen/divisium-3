@@ -486,7 +486,11 @@ function parseOptions() {
                 manualChallenges.push({info: URL_options[i]});
             }
         }
-//        window.history.pushState({}, null, window.location.href.split("?")[0]);
+        window.history.pushState({}, null, window.location.href.split("?")[0]);
+//        window.history.pushState({}, null, window.location.href);
+//        window.location.reload(true);
+//        window.history.replaceState(null, null, ' ');
+
     }
 
     /* Option fallbacks */
