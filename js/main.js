@@ -471,16 +471,16 @@ function parseOptions() {
         /* Go through options */
         for (let i = 0; i < URL_options.length; i++) {
             /* Level option */
-            if (URL_options[i].match("L[0-9]*$") != null) {
+            if (URL_options[i].match(/L[0-9]*$/) != null) {
                 level_option = URL_options[i].split("L")[1];
             }
 
             /* Challenge set option */
-            if (URL_options[i].match("S[0-9]*$") != null) {
+            if (URL_options[i].match(/S[0-9]*$/) != null) {
                 set_option = URL_options[i].split("S")[1];
             }
 
-            if (URL_options[i].match("#.*$") != null) {
+            if (URL_options[i].match(/#.*$/) != null) {
                 level_option = 1;
                 set_option   = "#";
                 manualChallenges.push({info: URL_options[i]});
@@ -489,7 +489,7 @@ function parseOptions() {
                 window.history.pushState({}, null, window.location.href.replace('#', '$'));
             }
 
-            if (URL_options[i].match("\$.*$") != null) {
+            if (URL_options[i].match(/\$.*$/) != null) {
                 level_option = 1;
                 set_option   = "#";
 

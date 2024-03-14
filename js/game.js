@@ -182,7 +182,7 @@ class Board {
     /* Initialize game */
     init(info) {
         /* Parse board configuration */
-        var boardInfo   = info.split('#')[1];
+        var boardInfo   = info.split(/[$,#]/)[1];
         this.width      = parseInt(boardInfo.substr(0,1));
         this.height     = parseInt(boardInfo.substr(2,1));
         this.targetSum  = parseInt(boardInfo.split('=')[1]);
