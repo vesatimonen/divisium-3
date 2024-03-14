@@ -465,6 +465,10 @@ var storageName  = "divisium-3/game-level";
 var level = 0;
 function parseOptions() {
     let URL_option_string = window.location.href.split("?")[1];
+
+    /* Convert URL special characters */
+    URL_option_string = URL_option_string.replace("%24",'$').replace("%23",'#');
+
     if (URL_option_string != undefined) {
         var URL_options = URL_option_string.split("&");
 
