@@ -51,7 +51,6 @@ var defaultChallengeSet = [
 
 var debugChallengeSet = [
     {info: "INFO: V14-11-08-03 C00-00-36 D0000000000000 T000001 E000 S00.025 #6x6=3-003000311011211212030120002020121201"},
-    {info: "INFO: V14-11-08-03 C00-00-36 D0000000000000 T000001 E000 S00.025 #6x6=3-003000311011211212030120002020121201"},
     {info: "INFO: V14-13-04-05 C00-00-36 D0000000000000 T000001 E000 S00.000 #6x6=3-023000101031031120031012101311021010"},
     {info: "INFO: V14-11-08-03 C01-05-35 D0000300000000 T000002 E001 S00.134 #6x6=3-120121012020021101231131100202003000"},
     {info: "INFO: V11-16-07-02 C01-04-35 D0000030000000 T000002 E001 S00.201 #6x6=3-021102112030010102122111111110030012"},
@@ -72,7 +71,7 @@ function parseOptions() {
     let URL_option_string = window.location.href.split("?")[1];
     if (URL_option_string != undefined) {
         /* Convert URL special characters */
-        URL_option_string = URL_option_string.replace("%24",'$').replace("%23",'#');
+        URL_option_string = URL_option_string.replace("%24",'$').replace("%23",'#').replace("%3E",'>');
 
         var URL_options = URL_option_string.split("&");
 
@@ -88,20 +87,13 @@ function parseOptions() {
                 set_option = URL_options[i].split("S")[1];
             }
 
-            if (URL_options[i].match(/#.*$/) != null) {
+            if (URL_options[i].match(/[#>$].*$/) != null) {
                 level_option = 1;
                 set_option   = "#";
                 manualChallenges.push({info: URL_options[i]});
 
                 /* Remove hash sign from URL */
-                window.history.pushState({}, null, window.location.href.replace('#', '$'));
-            }
-
-            if (URL_options[i].match(/\$.*$/) != null) {
-                level_option = 1;
-                set_option   = "#";
-
-                manualChallenges.push({info: URL_options[i].replace('$', '#')});
+                window.history.pushState({}, null, window.location.href.replace('#', '>'));
             }
         }
 
